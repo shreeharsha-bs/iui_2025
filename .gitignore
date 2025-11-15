@@ -1,8 +1,30 @@
 Emotion_Balanced*
 emotion_balanced*
+emotion_balanced_test/
 .ipynb_checkpoints
 audio_file_normaliztion.py
 selected_emotion_data_with_local_global_speaker.csv
 Test
-__MACOSX/._selected_emotion_data_with_local_global_speaker.csv
+__MACOSX/
 convert_emotion_files.py
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Study data (will be in Modal volume)
+recordings/
+results/
+
+# Git
+.git/
+
+# Modal
+.modal_cache/

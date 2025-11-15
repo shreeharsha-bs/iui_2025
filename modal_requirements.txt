@@ -1,0 +1,15 @@
+# Modal Requirements
+modal
+jupyter
+notebook
+ipywidgets
+torch
+torchaudio
+numpy
+pandas
+librosa
+transformers
+omegaconf
+pyyaml
+einops
+accelerate
