@@ -14,6 +14,14 @@ app = modal.App("iui-2025-voice-study")
 # Create a volume for persistent storage of results
 volume = modal.Volume.from_name("iui-study-results", create_if_missing=True)
 
+# Create HuggingFace secret (you'll need to create this in Modal dashboard first)
+# Go to modal.com/secrets and create a HuggingFace secret
+try:
+    hf_secret = modal.Secret.from_name("huggingface-secret")
+except Exception:
+    hf_secret = None
+    print("Note: HuggingFace secret not found. Create one at modal.com/secrets if needed.")
+
 # Define the container image with all dependencies
 image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -23,9 +31,9 @@ image = (
         "git"
     )
     .pip_install(
+        "numpy<2.0",  # Pin to 1.x for PyTorch 2.1 compatibility
         "torch==2.1.0",
         "torchaudio==2.1.0",
-        "numpy",
         "ipywidgets",
         "pandas",
         "librosa",
@@ -34,30 +42,33 @@ image = (
         "pyyaml",
         "einops",
         "accelerate",
+        "munch",
+        "g2p_en",
+        "cached_path",
+        "inflect",
+        "editdistance",
     )
     .run_commands(
-        "git clone https://github.com/Plachtaa/seed-vc.git /root/seed-vc"
+        "git clone https://github.com/Plachtaa/seed-vc.git /root/seed-vc",
+        # Create necessary directories
+        "mkdir -p /root/study/recordings",
+        "mkdir -p /root/study/responses",
+        "mkdir -p /root/study/results"
     )
-    # Add local files to the image (use copy=True for notebooks)
-    .add_local_dir(
-        ".",
-        remote_path="/root/study",
-        copy=True,
-        # Exclude large directories
-        condition=lambda pth: not any(
-            excluded in pth for excluded in [
-                ".git", "__pycache__", ".ipynb_checkpoints", 
-                "emotion_balanced", "Emotion_Balanced.zip", "__MACOSX",
-                "Test", "emotion_balanced_test", "recordings", "responses"
-            ]
-        )
-    )
+    # Add essential study files to the image (copy=True to allow run_commands after)
+    .add_local_file("shreeharshas-notebook-nov-16.ipynb", "/root/study/user_study.ipynb", copy=True)
+    .add_local_file("selected_emotion_data_with_local_global_speaker.csv", "/root/study/selected_emotion_data_with_local_global_speaker.csv", copy=True)
+    # Add the downloaded Seed-VC model file
+    .add_local_file("DiT_uvit_tat_xlsr_ema.pth", "/root/models/DiT_uvit_tat_xlsr_ema.pth", copy=True)
+    # Add target voices directory
+    .add_local_dir("target_voices", remote_path="/root/study/target_voices", copy=True)
 )
 
 # Function to use this image in Modal Notebooks
 @app.function(
     image=image,
     volumes={"/mnt/study-results": volume},  # Mount volume for persistent storage
+    secrets=[hf_secret] if hf_secret else [],  # Attach HF secret if available
     gpu="T4",  # Use GPU for faster voice conversion
     timeout=7200,  # 2 hour timeout
 )
@@ -74,8 +85,14 @@ def notebook_image():
     4. Upload your notebook or paste the code
     5. Files will be in /root/study/
     6. Save results to /mnt/study-results/ for persistence
+    
+    HuggingFace Token: Will be available as HF_TOKEN env variable if secret is attached
     """
-    pass
+    import os
+    if os.environ.get("HF_TOKEN"):
+        print("✓ HuggingFace token is available")
+    else:
+        print("ℹ No HuggingFace token found")
 
 
 # Alternative: Test function to verify setup
