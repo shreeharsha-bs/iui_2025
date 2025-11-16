@@ -31,22 +31,29 @@ image = (
         "git"
     )
     .pip_install(
-        "numpy<2.0",  # Pin to 1.x for PyTorch 2.1 compatibility
-        "torch==2.1.0",
-        "torchaudio==2.1.0",
+        "numpy==1.26.4",
+        "torch==2.4.0",
+        "torchaudio==2.4.0",
         "ipywidgets",
+        "ipywebrtc",  # For browser audio recording
         "pandas",
-        "librosa",
-        "transformers",
+        "librosa==0.10.2",
+        "transformers==4.46.3",
         "omegaconf",
         "pyyaml",
-        "einops",
+        "einops==0.8.0",
         "accelerate",
-        "munch",
+        "munch==4.0.0",
         "g2p_en",
         "cached_path",
         "inflect",
         "editdistance",
+        "descript-audio-codec==1.0.0",  # Required for seed-vc (imported as 'dac')
+        "scipy==1.13.1",
+        "soundfile==0.12.1",
+        "huggingface-hub>=0.28.1",
+        "hydra-core==1.3.2",
+        "resemblyzer",
     )
     .run_commands(
         "git clone https://github.com/Plachtaa/seed-vc.git /root/seed-vc",
@@ -56,8 +63,8 @@ image = (
         "mkdir -p /root/study/results"
     )
     # Add essential study files to the image (copy=True to allow run_commands after)
-    .add_local_file("shreeharshas-notebook-nov-16.ipynb", "/root/study/user_study.ipynb", copy=True)
-    .add_local_file("selected_emotion_data_with_local_global_speaker.csv", "/root/study/selected_emotion_data_with_local_global_speaker.csv", copy=True)
+    # .add_local_file("shreeharshas-notebook-nov-16.ipynb", "/root/study/user_study.ipynb", copy=True)
+    # .add_local_file("selected_emotion_data_with_local_global_speaker.csv", "/root/study/selected_emotion_data_with_local_global_speaker.csv", copy=True)
     # Add the downloaded Seed-VC model file
     .add_local_file("DiT_uvit_tat_xlsr_ema.pth", "/root/models/DiT_uvit_tat_xlsr_ema.pth", copy=True)
     # Add target voices directory
