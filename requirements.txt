@@ -2,7 +2,7 @@
 jupyter>=1.0.0
 notebook>=6.4.0
 ipywidgets>=8.0.0
-ipywebrtc>=0.6.0
+voila>=0.5.0
 
 # Data processing
 numpy>=1.21.0
@@ -13,5 +13,4 @@ torch>=2.0.0
 torchaudio>=2.0.0
 librosa>=0.10.0
 
-# Seed-VC will be installed separately from its repository
-# See README.md for setup instructions
+# Seed-VC dependencies (install from seed-vc/requirements-mac.txt separately)

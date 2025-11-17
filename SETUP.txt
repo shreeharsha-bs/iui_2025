@@ -1,0 +1,84 @@
+## IUI 2025 User Study - Setup Instructions
+
+### Prerequisites
+- Python 3.8 or higher
+- Conda (recommended) or pip
+
+### Installation Steps
+
+1. **Install Python dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Install Seed-VC dependencies:**
+   ```bash
+   cd seed-vc
+   pip install -r requirements-mac.txt
+   cd ..
+   ```
+
+3. **Verify your directory structure:**
+   ```
+   iui_2025/
+   ├── user_study_iui_2025.ipynb
+   ├── requirements.txt
+   ├── run_study.sh
+   ├── seed-vc/
+   ├── target_voices/
+   │   └── emotion_samples/
+   │       ├── happy/
+   │       ├── sad/
+   │       └── angry/
+   ├── recordings/     (will be created)
+   ├── responses/      (add AI responses here later)
+   └── results/        (will be created)
+   ```
+
+### Running the Study
+
+**Option 1: With Voila (recommended for participants)**
+```bash
+./run_study.sh
+```
+Or manually:
+```bash
+voila user_study_iui_2025.ipynb --port=8866
+```
+
+**Option 2: With Jupyter Notebook (for testing/development)**
+```bash
+jupyter notebook user_study_iui_2025.ipynb
+```
+
+### Adding AI Response Audio Files (Later)
+
+When you have AI responses ready, place them in the `responses/` directory with this naming format:
+```
+q{question_index}_{voice_profile}_response.wav
+```
+
+Example:
+- `q1_Happy_response.wav`
+- `q1_Sad_response.wav`
+- `q1_Angry_response.wav`
+
+### Troubleshooting
+
+**Issue: Models fail to load**
+- Make sure you have the model checkpoint file: `DiT_uvit_tat_xlsr_ema.pth`
+- Check that seed-vc dependencies are installed correctly
+
+**Issue: Audio upload doesn't work**
+- Make sure your audio file is in a supported format (.wav, .mp3, .m4a, .ogg)
+- Check that the file is not too large (< 10MB recommended)
+
+**Issue: Voice conversion is slow**
+- This is normal on CPU. Voice conversion takes 1-2 minutes per conversion.
+- For faster processing, use a GPU-enabled machine with CUDA support.
+
+### Results
+
+Study results are saved in the `results/` directory as JSON files:
+- `P{timestamp}_results.json` - Per-voice feedback responses
+- `P{timestamp}_final.json` - Final questionnaire responses

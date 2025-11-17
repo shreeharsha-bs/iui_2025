@@ -1,11 +1,14 @@
+# Large datasets
 Emotion_Balanced*
-emotion_balanced*
+emotion_balanced/
 emotion_balanced_test/
-.ipynb_checkpoints
-audio_file_normaliztion.py
+Test/
+*.zip
 selected_emotion_data_with_local_global_speaker.csv
-Test
+
+# Temporary/unused scripts
 __MACOSX/
+audio_file_normaliztion.py
 convert_emotion_files.py
 
 # Python
@@ -15,16 +18,25 @@ __pycache__/
 *.so
 .Python
 *.egg-info/
+venv/
+env/
 
 # Jupyter
 .ipynb_checkpoints/
+*.ipynb_checkpoints
+checkpoints*
 
-# Study data (will be in Modal volume)
-recordings/
-results/
+# Study data (generated during study)
+recordings/*.wav
+results/*.json
 
-# Git
-.git/
+# Keep directory structure but ignore contents
+!recordings/.gitkeep
+!results/.gitkeep
 
-# Modal
-.modal_cache/
+# Model checkpoints (large files)
+*.pth
+*.ckpt
+
+# macOS
+.DS_Store
