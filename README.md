@@ -28,8 +28,6 @@ iui_2025/
 
 ## 🚀 Quick Start
 
-### Option 1: Run Locally
-
 **Installation:**
 
 ```bash
@@ -46,41 +44,6 @@ git clone https://github.com/Plachtaa/seed-vc.git
 # Launch Jupyter
 jupyter notebook user_study_iui_2025.ipynb
 ```
-## 📊 Study Workflow
-
-### 1. Setup & Configuration
-- Loads required libraries and initializes the Seed-VC voice conversion model
-- Configures file paths and target voice profiles
-
-### 2. Question Selection
-- Participants choose from 8 conversation starters covering topics like:
-  - Career advancement
-  - Workplace relationships
-  - Work-life balance
-  - Professional development
-
-### 3. Audio Recording
-- Browser-based audio recording (no plugins required)
-- Supports microphone input with automatic format conversion
-
-### 4. Voice Conversion
-- Converts recorded audio to multiple target voices:
-  - Female American (Happy emotion)
-  - Male British (Angry emotion)
-  - Male American (Sad emotion)
-
-### 5. Feedback Collection
-Participants rate each interaction on:
-- **Content Quality**: Relevance and helpfulness of AI responses
-- **Voice Quality**: Naturalness, clarity, and tone appropriateness
-- **Interaction Experience**: Understanding, comfort, trust, and engagement
-- **Open-ended feedback**: Additional comments and observations
-
-### 6. Final Questionnaire
-- Overall preference comparison
-- Importance of consistent AI behavior
-- Concerns about voice-adaptive systems
-- Optional demographics
 
 ## 📧 Contact
 
@@ -90,4 +53,3 @@ For questions about the study or technical issues:
 
 ---
 
-**Note**: This study involves human participants and voice data. Please ensure compliance with your institution's IRB requirements before conducting the study.
