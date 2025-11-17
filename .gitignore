@@ -40,3 +40,5 @@ results/*.json
 
 # macOS
 .DS_Store
+DiT_uvit_tat_xlsr_ema.pth
+recordings*
